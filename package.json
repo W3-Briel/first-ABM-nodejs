@@ -1,0 +1,20 @@
+{
+  "name": "first-abm-nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/W3-Briel/first-ABM-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/W3-Briel/first-ABM-nodejs/issues"
+  },
+  "homepage": "https://github.com/W3-Briel/first-ABM-nodejs#readme",
+  "description": ""
+}
