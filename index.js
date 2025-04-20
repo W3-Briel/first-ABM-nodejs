@@ -1,25 +1,28 @@
-// const path = require("path")
-const fs = require("fs/promises")
+const path = require("path")
+const fsPromise = require("fs/promises")
+const fs = require("fs")
 
+let setupLogger = async ({ loggerName = "server logs" } = {}) => {
+    let date = new Date()
+    let logFormat = `log_${date.getFullYear()}-${date.getMonth() + 1}`
+    let pathLog = path.join(loggerName, `${logFormat}.txt`)
 
-async function setUpLogger(nameLogger = "server logs"){
-    let screenDate = new Date()
-    
-    let dirLog = screenDate.getFullYear() +"-" +screenDate.getMonth()+1
-    let dayLog = "log-" + screenDate.getDay
-    
-    //crear la carpeta "nameLogger" si no se encuentra en el direcctorio actual
-    let ls = await fs.readdir(".",{withFileTypes: true})
-    let dirNames = ls.filter((d) => d.isDirectory())
-    .map((d) => d.name)
-    
-    if (nameLogger in dirNames){
-        console.log("la carpeta ya existe, salteamos este paso")
-    }else{
-        //carpeta creada
-        fs.mkdir(nameLogger)
+    try {
+        await fsPromise.mkdir(loggerName)
+    } catch (err) {
+        if (err.code == "EEXIST") console.warn("ya existe la carpeta: ", loggerName)
+        else throw Error(`se encontro un error en la creacion de la carpeta ${err}`)
     }
+
+    await fsPromise.appendFile(pathLog, "sucess - setup\n")
+        .catch(
+            (err) => {
+                console.warn("error al crear/escribir el archivo ", pathLog)
+                throw err
+            })
+
 }
 
+setupLogger()
 
-setUpLogger()
+console.log("skere")
